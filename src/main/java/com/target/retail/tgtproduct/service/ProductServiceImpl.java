@@ -1,16 +1,20 @@
 package com.target.retail.tgtproduct.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.netflix.discovery.converters.Auto;
 import com.target.retail.tgtproduct.exception.ProductErrorCode;
 import com.target.retail.tgtproduct.exception.ProductException;
 import com.target.retail.tgtproduct.exception.ProductResourceConstant;
 import com.target.retail.tgtproduct.model.Product;
+import com.target.retail.tgtproduct.productdetailproxy.ProdutDetailProxy;
 import com.target.retail.tgtproduct.repository.ProductRepository;
 import com.target.retail.tgtproduct.rest.ProductController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * @author abhilasha
@@ -23,6 +27,9 @@ public class ProductServiceImpl implements ProductService{
 
     @Autowired
     ProductRepository productRepository;
+
+    @NonNull
+    ProdutDetailProxy produtDetailProxy;
 
     @Override
     public Product createProduct(ProductController.ProductData productData) {
@@ -40,8 +47,9 @@ public class ProductServiceImpl implements ProductService{
             throw new ProductException(ProductResourceConstant.PRODUCT_ID_CANNOT_BE_EMPTY, ProductErrorCode.PRODUCT_ID_CANNOT_BE_EMPTY);
         Product product = productRepository.findById(id);
         if(product == null)
-            throw new ProductException(ProductResourceConstant.PRODUCT_NOT_FOUND, ProductErrorCode.PRODUCT_NOT_FOUND);
+//            throw new ProductException(ProductResourceConstant.PRODUCT_NOT_FOUND, ProductErrorCode.PRODUCT_NOT_FOUND);
         // TODO Get the price and product name details.
+            produtDetailProxy.getProductData(id);
 
         return product;
     }
