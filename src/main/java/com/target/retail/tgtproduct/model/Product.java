@@ -1,11 +1,6 @@
 package com.target.retail.tgtproduct.model;
-
-import org.springframework.data.domain.AbstractAggregateRoot;
-
-import javax.annotation.sql.DataSourceDefinition;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -19,7 +14,22 @@ public class Product {
     @Id
     private String id;
 
-    private LocalDateTime createdAt;
-    private LocalDateTime lastUpdated;
+    private transient String name;
+    private transient String brand;
+
+    public Product(){
+
+    }
+    public Product(String id){
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
 }

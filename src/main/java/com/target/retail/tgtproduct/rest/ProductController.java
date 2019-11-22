@@ -8,7 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.money.MonetaryAmount;
+import java.util.LinkedHashMap;
+
 
 /**
  * @author abhilasha
@@ -23,7 +24,7 @@ public class ProductController {
 
     @GetMapping(value = "/products/{id}")
     ResponseEntity<Object> getProduct(@PathVariable(value = "id")String id){
-        Product product = productService.getProductById(id);
+        LinkedHashMap product = productService.getProductById(id);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
@@ -42,13 +43,69 @@ public class ProductController {
 
 
 
-    public class ProductData{
+    public static class ProductData{
         private String id;
         private String name;
         private Price price;
+
+
+        ProductData(){
+
+        }
+        public ProductData(String id,String name,Price price){
+            this.id = id;
+            this.name=name;
+            this.price = price;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public Price getPrice() {
+            return price;
+        }
+
+        public void setPrice(Price price) {
+            this.price = price;
+        }
     }
 
-    public class Price{
-        String amount;
+    public static class Price{
+        String value;
+        String currency;
+
+        Price(){}
+        Price(String value,String currency){
+            this.value = value;
+            this.currency = currency;
+        }
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+
+        public String getCurrency() {
+            return currency;
+        }
+
+        public void setCurrency(String currency) {
+            this.currency = currency;
+        }
     }
 }

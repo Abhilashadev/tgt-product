@@ -3,6 +3,8 @@ package com.target.retail.tgtproduct.service;
 import com.target.retail.tgtproduct.model.Product;
 import com.target.retail.tgtproduct.rest.ProductController;
 
+import java.util.LinkedHashMap;
+
 /**
  * @author abhilasha
  * @since 21/11/19
@@ -34,5 +36,5 @@ public interface ProductService {
      * @param id
      * @return product
      */
-    Product getProductById(String id);
+    LinkedHashMap<String, Object> getProductById(String id);
 }
